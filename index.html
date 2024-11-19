@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/idb@7/build/umd.js"></script>
+
+
+
+
+<script type="module">
+ 
+  </script>
+    
+    <title>Contact List App</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="center-align nav-wrapper light-blue lighten-1">
+            <a href="#" class="brand-logo">Contact List</a>
+            <ul class="right">
+                <li><a href="#!" onclick="openAddContactModal()"><i class="material-icons">add</i></a></li>
+                <li><a href="#!" data-target="mobile-menu" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidenav for All Devices -->
+    <ul class="sidenav" id="mobile-menu">
+        <!-- <li class="center-align my-4 light-blue"><h5>Contact List</h5></li> -->
+        <li><a class="my-4" href="#about">About</a></li>
+    </ul>
+
+
+    <div class="container mx-0 w-100">
+        <!-- This ensures the banner is part of this section -->
+        <div id="status-banner" class="banner"></div>
+    </div>
+    
+    <!-- Controls Section Below Navbar -->
+    <div class="container section-controls">
+        <div class="row valign-wrapper">
+            <!-- Search Button with Expandable Search Bar -->
+            <div class="col s4 center-align">
+                <button id="search-btn" class="btn light-blue lighten-1" onclick="toggleSearchBar()">
+                    <i class="material-icons left">search</i>Search
+                </button>
+            </div>
+
+            <!-- Sort Button -->
+            <div class="col s4 center-align">
+                <button href="#!" onclick="openSortPopup()" class="btn light-blue lighten-1">
+                    <i class="material-icons left">sort</i>Sort
+                </button>
+            </div>
+
+            <!-- Filter Button -->
+            <div class="col s4 center-align">
+                <button href="#!" onclick="openFilterPopup()" class="btn light-blue lighten-1">
+                    <i class="material-icons left">filter_list</i>Filter
+                </button>
+            </div>
+        </div>
+        <!-- Expandable Search Bar -->
+        <div id="search-bar" class="search-bar mt-5">
+            <input type="text" id="search-input" placeholder="Search by Name, E-mail, or Notes">
+        </div>
+    </div>
+
+    <!-- Contact List -->
+    <div class="container mt-6">
+        <div id="contact-list"></div>
+    </div>
+
+    <!-- Filter Popup Modal -->
+    <div id="filter-popup" class="modal">
+        <div class="modal-content">
+            <h5>Filter by Category</h5>
+            <form id="filter-form">
+                <p>
+                    <label>
+                        <input type="checkbox" id="filter-business" />
+                        <span>Business</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" id="filter-personal" />
+                        <span>Personal</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" id="filter-btn" class="waves-effect waves-green btn">Apply</a>
+        </div>
+    </div>
+
+    <!-- Sort Popup Modal -->
+    <div id="sort-popup" class="modal">
+        <div class="modal-content">
+            <h5>Sort Contacts</h5>
+            <div class="input-field">
+                <select id="sort-options">
+                    <option value="" disabled selected>Select an option...</option>
+                    <option value="firstName">First Name</option>
+                    <option value="lastName">Last Name</option>
+                    <option value="email">E-mail Address</option>
+                    <option value="phone">Phone Number</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            <a href="#!" id="sort-btn" class="waves-effect waves-light btn">Apply</a>
+        </div>
+    </div>
+     
+    <!-- About Modal -->
+<div id="contactModal" class="modal">
+    <div class="modal-content">
+        <h4>Contact List</h4>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>
+
+    <!-- Add Contact Modal -->
+    <div id="add-contact-modal" class="modal">
+        <div class="modal-content">
+            <h5 class="center-align">Add New Contact</h5>
+            <form id="contact-form">
+               <p>Category</p>
+                <select id="category">
+                    <option value="Business">Business</option>
+                    <option value="Personal">Personal</option>
+                </select>
+                <input type="text" id="first-name" placeholder="First Name" required>
+                <input type="text" id="last-name" placeholder="Last Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="tel" id="phone" placeholder="Phone Number" required pattern="[0-9]*" required maxlength="15">
+                <textarea id="notes" placeholder="Notes"></textarea>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    <button type="submit" class="btn">Save Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0/firebase-firestore.js"></script> -->
+    
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/idb/6.1.5/idb.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script>
+    <script type="module" src="./assets/app.js"></script>
+    <!-- <script src="./assets/functions.js"></script> -->
+    <!-- <script src="./assets/app2.js"></script> -->
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          
+
+
+    // Initialize modals
+    const modalElems = document.querySelectorAll('.modal');
+    M.Modal.init(modalElems);
+  
+    // Initialize sidenav
+    const sidenavElems = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(sidenavElems);
+    M.Sidenav.init(sidenavElems, {
+        edge: 'right' // Open the sidenav from the right
+    });
+    // Initialize select elements
+    const selectElems = document.querySelectorAll('select');
+    M.FormSelect.init(selectElems);
+
+    // Add event listener for "about" link to open a modal
+    const aboutLink = document.querySelector('#mobile-menu a[href="#about"]');
+    if (aboutLink) {
+        aboutLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            const modalInstance = M.Modal.getInstance(document.getElementById('contactModal'));
+            modalInstance.open(); // Open the modal
+        });
+    }
+});
+
+
+
+// Function to open specific modals programmatically
+function openAddContactModal() {
+    var instance = M.Modal.getInstance(document.getElementById('add-contact-modal'));
+    instance.open();
+}
+
+function openFilterPopup() {
+    var instance = M.Modal.getInstance(document.getElementById('filter-popup'));
+    instance.open();
+}
+
+function openSortPopup() {
+    var instance = M.Modal.getInstance(document.getElementById('sort-popup'));
+    instance.open();
+}
+
+// Toggle Search Bar Visibility
+function toggleSearchBar() {
+    const searchBar = document.getElementById('search-bar');
+    searchBar.style.display = searchBar.style.display === 'none' || searchBar.style.display === '' ? 'block' : 'none';
+}
+
+
+ // Function to show the banner with specified message and color
+ function showBanner(message, colorClass) {
+    const banner = document.getElementById('status-banner');
+    banner.innerText = message;
+    banner.className = `banner ${colorClass} show`; // Apply class for color and visibility
+
+    // Hide banner after 2 seconds
+    setTimeout(() => {
+        banner.classList.remove('show');
+    }, 2000);
+}
+
+// Event listeners for online and offline status
+window.addEventListener('online', () => showBanner("You're back online!", 'green'));
+window.addEventListener('offline', () => showBanner("You're offline.", 'red'));
+
+    </script>
+</body>
+</html>
